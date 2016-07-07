@@ -1,6 +1,6 @@
 {
   "name": "brisky-props",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Adds attributes to Brisky",
   "main": "index.js",
   "scripts": {
