@@ -33,7 +33,7 @@ exports.properties = {
         },
         state (target, state, type, stamp, subs, tree, id, pid) {
           const pnode = getParent(type, stamp, subs, tree, pid)
-          const key = target.name || target.key
+          const key = target.name || target.key || state.key
           if (type === 'remove') {
             if (pnode) {
               pnode.removeAttribute(key)
