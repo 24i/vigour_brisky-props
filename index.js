@@ -20,10 +20,15 @@ exports.properties = {
       render: {
         static (target, pnode) {
           const val = target.compute()
+          const key = target.name || target.key
           if (val === target) {
-            pnode.removeAttribute(target.name || target.key) // cover is this even nessecary here?
+            pnode.removeAttribute(key) // cover is this even nessecary here?
           } else {
-            pnode.setAttribute(target.name || target.key, val)
+            if (key === 'xlink:href') {
+              pnode.setAttributeNS('http://www.w3.org/1999/xlink', key, val)
+            } else {
+              pnode.setAttribute(key, val)
+            }
           }
         },
         state (target, state, type, stamp, subs, tree, id, pid) {
@@ -42,7 +47,11 @@ exports.properties = {
               }
             } else {
               if (pnode.getAttribute(key) != val) { // eslint-disable-line
-                pnode.setAttribute(key, val)
+                if (key === 'xlink:href') {
+                  pnode.setAttributeNS('http://www.w3.org/1999/xlink', key, val)
+                } else {
+                  pnode.setAttribute(key, val)
+                }
               }
             }
           }
